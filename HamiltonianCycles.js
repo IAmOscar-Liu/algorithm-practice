@@ -31,8 +31,7 @@
 
 const dispCycles = (graph, start) => {
   const cycles = getCycles(graph, start, [start], start, Object.keys(graph).length);
-  cycles.forEach((cycle, idx) => console.log(`cycle ${idx}: ${cycle.join(",")}`))
-
+  cycles.forEach((cycle, idx) => console.log(`cycle ${idx + 1}: ${cycle.join(",")}`))
 }
 
 const myGraph = {
