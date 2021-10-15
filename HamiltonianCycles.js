@@ -1,4 +1,4 @@
-  const isPathOK = (path, nodeNum) => {
+ const isPathOK = (path, nodeNum) => {
     if (path.length > nodeNum) return false;
     if (path.length <= 2) return true;
     if (path.slice(0, -1).includes(path[path.length - 1])) return false;
@@ -29,11 +29,18 @@
     return cycles;
   };
 
-  const myGraph = {
-    1: [2, 3, 5],
-    2: [1, 3, 4, 5],
-    3: [1, 2, 4],
-    4: [2, 3, 5],
-    5: [1, 2, 4],
-  };
-  console.log(getCycles(myGraph, 1, [1], 1, Object.keys(myGraph).length));
+const dispCycles = (graph, start) => {
+  const cycles = getCycles(graph, start, [start], start, Object.keys(graph).length);
+  cycles.forEach((cycle, idx) => console.log(`cycle ${idx}: ${cycle.join(",")}`))
+
+}
+
+const myGraph = {
+  1: [2, 3, 5],
+  2: [1, 3, 4, 5],
+  3: [1, 2, 4],
+  4: [2, 3, 5],
+  5: [1, 2, 4],
+};
+
+dispCycles(myGraph, 1);
