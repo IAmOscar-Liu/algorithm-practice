@@ -1,34 +1,34 @@
-const swap = (a, i, j) => {
-  const tmp = a[i];
-  a[i] = a[j];
-  a[j] = tmp;
-};
+const swap = (arr, l, r) => {
+    const tmp = arr[l];
+    arr[l] = arr[r];
+    arr[r] = tmp;
+}
 
-const partition = (arr) => {
-  let i = 0;
-  let j = arr.length;
-  let pivot = arr[0];
-  while (i < j) {
-    do {
-      i++;
-    } while (arr[i] <= pivot);
+const partition = (arr, left, right) => {
+    let l = left, j = right;
 
-    do {
-      j--;
-    } while (arr[j] > pivot);
-    if (i < j) swap(arr, i, j);
-  }
-  swap(arr, 0, j);
-  return [arr, j];
-};
+    while (l < j) {
+        do { l ++ } while (l > left && arr[l] <= arr[left])
+        do { j -- } while (j < right && arr[j] > arr[left])
+
+        if (l < j) swap(arr, l, j);
+    }
+    swap(arr, left, j);
+    return j;
+}
+
+const doQuickSort = (arr, left, right) => {
+    if (left < right) {
+        const j = partition(arr, left, right);
+        doQuickSort(arr, left, j);
+        doQuickSort(arr, j + 1, right);
+    }
+}
 
 const quickSort = (arr) => {
-  if (arr.length == 0) return arr;
-  
-  const [newArr, j] = partition([...arr]);
-  const head = quickSort(newArr.slice(0, j));
-  const tail = quickSort(newArr.slice(j + 1));
-  return [...head, newArr[j], ...tail];
-};
+    doQuickSort(arr, 0, arr.length);
+    return arr;
+}
 
 console.log(quickSort([7, 1, 3, 6, 4, 10, 9]));
+console.log(quickSort([5, 10, 7, 2, 6, 9, 3, 8, 1, 4]));
